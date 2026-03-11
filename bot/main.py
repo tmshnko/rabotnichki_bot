@@ -1,0 +1,21 @@
+import asyncio
+from aiogram import Bot, Dispatcher
+from .config import BOT_TOKEN
+from .handlers import basic
+from .scheduler import setup_scheduler
+
+
+async def main():
+    bot = Bot(token=BOT_TOKEN, validate_token=False)
+    dp = Dispatcher()
+
+    dp.include_router(basic.router)
+
+    # Настройка планировщика
+    setup_scheduler(bot)
+
+    await dp.start_polling(bot)
+
+
+if __name__ == "__main__":
+    asyncio.run(main())
