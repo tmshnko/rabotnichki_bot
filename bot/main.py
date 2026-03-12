@@ -13,7 +13,7 @@ async def main():
     dp.include_router(votes.router)
 
     # Настройка планировщика
-    setup_scheduler(bot)
+    scheduler = setup_scheduler(bot)
 
     await dp.start_polling(bot)
 
