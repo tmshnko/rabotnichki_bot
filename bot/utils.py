@@ -31,6 +31,9 @@ def build_text_lunch(votes):
         if "no_nalunch" not in choice:
             lunch.append(username)
 
+    if len(lunch) == 0:
+        lunch.append('ничей :(') 
+        
     text = "<b>Можно наланчи:</b>" + "\n".join(lunch)
-    
+
     return text
