@@ -18,10 +18,10 @@ def build_text(votes):
         return text
 
     if office:
-        text += "<b>Сегодня в офисе:</b>" + "\n".join(office) + "\n\n"
+        text += "<b>Сегодня в офисе:</b>\n" + "\n".join(office) + "\n\n"
 
     if lunch:
-        text += "<b>Можно наланчи:</b>" + "\n".join(lunch)
+        text += "<b>Можно наланчи:</b>\n" + "\n".join(lunch)
 
     return text
 
@@ -34,6 +34,6 @@ def build_text_lunch(votes):
     if len(lunch) == 0:
         lunch.append('ничей :(') 
         
-    text = "<b>Можно наланчи:</b>" + "\n".join(lunch)
+    text = "<b>Можно наланчи:</b>\n" + "\n".join(lunch)
 
     return text
