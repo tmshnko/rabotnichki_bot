@@ -17,6 +17,13 @@ def init_db():
             PRIMARY KEY (user_id, vote_date)
         )
         """)
+
+        cursor.execute("""
+                CREATE TABLE IF NOT EXISTS daily_message (
+                vote_date TEXT PRIMARY KEY,
+                chat_id INTEGER,
+                message_id INTEGER
+            );""")
         conn.commit()
 
 def save_vote(user_id: int, username: str, choice: str):
@@ -33,6 +40,18 @@ def save_vote(user_id: int, username: str, choice: str):
 
         conn.commit()
 
+def save_daily_message(chat_id: int, message_id: int):
+    from datetime import date
+    today = str(date.today())
+
+    with sqlite3.connect(DB_PATH) as conn:
+        cursor = conn.cursor()
+        cursor.execute("""
+        INSERT OR REPLACE INTO daily_message (vote_date, chat_id, message_id)
+        VALUES (?, ?, ?)
+        """, (today, chat_id, message_id))
+        conn.commit()
+
 def get_user_vote(user_id: int):
     today = str(date.today())
 
@@ -43,6 +62,19 @@ def get_user_vote(user_id: int):
         WHERE user_id=? AND vote_date=?
         """, (user_id, today))
 
+        return cursor.fetchone()
+    
+def get_daily_message():
+    from datetime import date
+    today = str(date.today())
+
+    with sqlite3.connect(DB_PATH) as conn:
+        cursor = conn.cursor()
+        cursor.execute("""
+        SELECT chat_id, message_id
+        FROM daily_message
+        WHERE vote_date=?
+        """, (today,))
         return cursor.fetchone()
     
 def get_today_stats():
@@ -69,3 +101,16 @@ def clear_old_votes():
         WHERE vote_date != ?
         """, (today,))
         conn.commit()
+
+def get_today_votes():
+    from datetime import date
+    today = str(date.today())
+
+    with sqlite3.connect(DB_PATH) as conn:
+        cursor = conn.cursor()
+        cursor.execute("""
+        SELECT username, choice
+        FROM daily_votes
+        WHERE vote_date=?
+        """, (today,))
+        return cursor.fetchall()
