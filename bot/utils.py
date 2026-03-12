@@ -1,3 +1,5 @@
+import html
+
 def build_text(votes):
     office = []
     lunch = []
@@ -15,12 +17,20 @@ def build_text(votes):
     if not votes:
         return text
 
-    text += "**Сегодня в офисе:**\n"
-    for user in office:
-        text += f"{user}\n"
+    if office:
+        text += "<b>Сегодня в офисе:</b>" + "\n".join(office) + "\n\n"
 
-    text += "\n**Можно наланчи:**\n"
-    for user in lunch:
-        text += f"{user}\n"
+    if lunch:
+        text += "<b>Можно наланчи:</b>" + "\n".join(lunch)
 
+    return text
+
+def build_text_lunch(votes):
+    lunch = []
+    for username, choice in votes:
+        if "no_nalunch" not in choice:
+            lunch.append(username)
+
+    text = "<b>Можно наланчи:</b>" + "\n".join(lunch)
+    
     return text

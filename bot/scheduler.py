@@ -20,6 +20,7 @@ def setup_scheduler(bot: Bot):
         msg = await bot.send_message(
             chat_id=TEST_CHAT_ID,
             text="Ну че как братва?",
+            parse_mode='HTML',
             reply_markup=get_daily_keyboard()
         )
         save_daily_message(msg.chat.id, msg.message_id)

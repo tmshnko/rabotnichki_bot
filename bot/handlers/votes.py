@@ -24,13 +24,8 @@ async def vote_handler(callback: CallbackQuery):
         choice=choice
     )
 
-    # Получаем все голоса
     votes = get_today_votes()
-
-    # Формируем новый текст
     new_text = build_text(votes)
-
-    # Получаем сообщение дня
     daily_msg = get_daily_message()
 
     if daily_msg:
@@ -40,6 +35,7 @@ async def vote_handler(callback: CallbackQuery):
             chat_id=chat_id,
             message_id=message_id,
             text=new_text,
+            parse_mode='HTML',
             reply_markup=get_daily_keyboard()
         )
 
