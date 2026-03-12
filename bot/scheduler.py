@@ -23,7 +23,7 @@ def setup_scheduler(bot: Bot):
         )
 
     scheduler.add_job(send_daily_message, "cron", hour=8, minute=0, day_of_week='mon-fri')
-    scheduler.add_job(send_daily_message_new, "cron", hour=12, minute=37)
+    scheduler.add_job(send_daily_message_new, "cron", hour=12, minute=52)
 
     scheduler.start()
 
