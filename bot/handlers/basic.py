@@ -16,4 +16,4 @@ async def lunch_handler(message: Message):
     votes = get_today_votes()
     text = build_text_lunch(votes)
 
-    await message.answer(text)
+    await message.answer(text, parse_mode='HTML')
