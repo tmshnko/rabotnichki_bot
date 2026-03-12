@@ -5,6 +5,7 @@ load_dotenv()
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 CHAT_ID = int(os.getenv("CHAT_ID"))
+TEST_CHAT_ID = int(os.getenv("TEST_CHAT_ID"))
 
 DAILY_TEXT = """
 Ну че, кто в офис, братва?
