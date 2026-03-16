@@ -37,3 +37,16 @@ def build_text_lunch(votes):
     text = "<b>Можно наланчи:</b>\n" + "\n".join(lunch)
 
     return text
+
+def text_left_lunches(votes, user):
+    lunch = []
+    for username, choice in votes:
+        if "no_nalunch" not in choice:
+            lunch.append(username)
+
+    if len(lunch) == 0:
+        lunch.append('ничей :(') 
+        
+    text = f"Ну оки доки забирай наланч {user}\n\n<b>Остались наланчи:</b>\n" + "\n".join(lunch)
+
+    return text

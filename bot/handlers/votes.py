@@ -19,7 +19,6 @@ async def vote_handler(callback: CallbackQuery):
     user = callback.from_user
 
     save_vote(
-        user_id=user.id,
         username=user.username or user.full_name,
         choice=choice
     )
