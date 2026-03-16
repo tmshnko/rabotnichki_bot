@@ -32,7 +32,7 @@ def save_vote(username: str, choice: str):
         cursor = conn.cursor()
         cursor.execute("""
         INSERT INTO daily_votes (username, choice, vote_date)
-        VALUES (?, ?, ?, ?)
+        VALUES (?, ?, ?)
         ON CONFLICT(username, vote_date)
         DO UPDATE SET choice=excluded.choice
         """, (username, choice, today))
