@@ -102,15 +102,4 @@ def clear_old_votes():
         """, (today,))
         conn.commit()
 
-def get_today_votes():
-    from datetime import date
-    today = str(date.today())
-
-    with sqlite3.connect(DB_PATH) as conn:
-        cursor = conn.cursor()
-        cursor.execute("""
-        SELECT username, choice
-        FROM daily_votes
-        WHERE vote_date=?
-        """, (today,))
-        return cursor.fetchall()
+        

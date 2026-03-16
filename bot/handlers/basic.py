@@ -17,3 +17,8 @@ async def lunch_handler(message: Message):
     text = build_text_lunch(votes)
 
     await message.answer(text, parse_mode='HTML')
+
+@router.message(Command("take"))
+async def take_lunch_handler(message:Message):
+    user=message.from_user 
+    await message.answer(message.text)
