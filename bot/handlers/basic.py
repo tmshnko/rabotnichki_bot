@@ -35,9 +35,9 @@ async def take_lunch_handler(message:Message):
     current_choice = get_user_vote(user)
 
     if 'office' in current_choice:
-        new_choice = 'vote_office_no_lunch'
+        new_choice = 'vote_office_no_nalunch'
     else:
-        new_choice = 'vote_home_no_lunch'
+        new_choice = 'vote_home_no_nalunch'
 
     save_vote(
         username=user,
