@@ -40,11 +40,11 @@ async def take_lunch_handler(message:Message):
         new_choice = 'vote_home_no_lunch'
 
     save_vote(
-        username=user.username or user.full_name,
+        username=user,
         choice=new_choice
     )
 
     votes = get_today_votes() 
     text = text_left_lunches(votes, user)
-    
+
     await message.answer(text)
