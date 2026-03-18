@@ -10,10 +10,11 @@ def init_db():
         cursor = conn.cursor()
         cursor.execute("""
         CREATE TABLE IF NOT EXISTS daily_votes (
+            user_id INT,
             username TEXT,
             choice TEXT,
             vote_date TEXT,
-            PRIMARY KEY (username, vote_date)
+            PRIMARY KEY (user_id, vote_date)
         )
         """)
 
@@ -25,17 +26,17 @@ def init_db():
             );""")
         conn.commit()
 
-def save_vote(username: str, choice: str):
+def save_vote(user_id: int, username: str, choice: str):
     today = str(date.today())
 
     with sqlite3.connect(DB_PATH) as conn:
         cursor = conn.cursor()
         cursor.execute("""
-        INSERT INTO daily_votes (username, choice, vote_date)
-        VALUES (?, ?, ?)
-        ON CONFLICT(username, vote_date)
+        INSERT INTO daily_votes (user_id, username, choice, vote_date)
+        VALUES (?, ?, ?, ?)
+        ON CONFLICT(user_id,  vote_date)
         DO UPDATE SET choice=excluded.choice
-        """, (username, choice, today))
+        """, (user_id, username, choice, today))
 
         conn.commit()
 
@@ -102,7 +103,6 @@ def clear_old_votes():
         conn.commit()
 
 def get_today_votes():
-    from datetime import date
     today = str(date.today())
 
     with sqlite3.connect(DB_PATH) as conn:
@@ -113,3 +113,15 @@ def get_today_votes():
         WHERE vote_date=?
         """, (today,))
         return cursor.fetchall()
+    
+def change_today_vote(username: str, new_vote: str):
+    today = str(date.today())
+
+    with sqlite3.connect(DB_PATH) as conn:
+        cursor = conn.cursor()
+        cursor.execute("""
+        UPDATE daily_votes 
+        SET choice = ? 
+        WHERE vote_date=? AND username = ?
+        """, (new_vote, today, username))
+        conn.commit()

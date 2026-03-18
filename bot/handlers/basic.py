@@ -2,7 +2,7 @@ from aiogram import Router
 from aiogram.types import Message
 from aiogram.filters import Command
 
-from bot.database import get_today_votes, save_vote, get_user_vote
+from bot.database import get_today_votes, change_today_vote, get_user_vote
 from bot.utils import build_text_lunch, text_left_lunches
 
 router = Router()
@@ -39,10 +39,7 @@ async def take_lunch_handler(message:Message):
     else:
         new_choice = 'vote_home_no_nalunch'
 
-    save_vote(
-        username=user,
-        choice=new_choice
-    )
+    change_today_vote(user, new_choice)
 
     votes = get_today_votes() 
     text = text_left_lunches(votes, user)
