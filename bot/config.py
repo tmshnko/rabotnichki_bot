@@ -6,6 +6,7 @@ load_dotenv()
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 CHAT_ID = int(os.getenv("CHAT_ID"))
 TEST_CHAT_ID = int(os.getenv("TEST_CHAT_ID"))
+DEEPSEEK_API_KEY = os.getenv("DEEPSEEK_API_KEY")
 
 DAILY_TEXT = """
 Ну че, кто в офис, братва?
