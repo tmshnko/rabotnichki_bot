@@ -2,9 +2,9 @@ from aiogram import Router
 from aiogram.types import CallbackQuery
 from datetime import date
 
-from bot.database import save_vote, get_today_votes, get_daily_message
-from bot.utils import build_text
-from bot.keyboards import get_daily_keyboard
+from bot.repositories.database import save_vote, get_today_votes, get_daily_message
+from bot.utils.utils import build_text
+from bot.keyboards.keyboards import get_daily_keyboard
 
 router = Router()
 

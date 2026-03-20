@@ -2,8 +2,8 @@ from aiogram import Router
 from aiogram.types import Message
 from aiogram.filters import Command
 
-from bot.database import get_today_votes, change_today_vote, get_user_vote
-from bot.utils import build_text_lunch, text_left_lunches
+from bot.repositories.database import get_today_votes, change_today_vote, get_user_vote
+from bot.utils.utils import build_text_lunch, text_left_lunches
 
 router = Router()
 

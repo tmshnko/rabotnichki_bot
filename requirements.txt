@@ -2,3 +2,4 @@ aiogram==3.*
 python-dotenv
 apscheduler
 pytz
+httpx
