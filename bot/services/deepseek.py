@@ -34,6 +34,6 @@ async def ask_deepseek(user_message: str) -> str:
         data = response.json()
 
         if "choices" not in data:
-            return "Что-то пошло не так 😅"
+            return f"API ошибка: {data}"
 
         return data["choices"][0]["message"]["content"]
