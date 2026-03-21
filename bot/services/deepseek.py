@@ -13,28 +13,28 @@ SYSTEM_PROMPT = """
 Всегда форматируй ответ как диалог.
 """
 
+client = httpx.AsyncClient(timeout=30)
+
 async def ask_deepseek(user_message: str) -> str:
-    async with httpx.AsyncClient(timeout=60) as client:
-        response = await client.post(
-            DEEPSEEK_URL,
-            headers={
-                "Authorization": f"Bearer {DEEPSEEK_API_KEY}",
-                "Content-Type": "application/json",
-            },
-            json={
-                "model": "deepseek-chat",
-                "messages": [
-                    {"role": "system", "content": SYSTEM_PROMPT},
-                    {"role": "user", "content": user_message}
-                ],
-                "temperature": 0.7,
-                "max_tokens": 500,
-            },
-        )
+    response = await client.post(
+        DEEPSEEK_URL,
+        headers={
+            "Authorization": f"Bearer {DEEPSEEK_API_KEY}",
+            "Content-Type": "application/json",
+        },
+        json={
+            "model": "deepseek-chat",
+            "messages": [
+                {"role": "system", "content": SYSTEM_PROMPT},
+                {"role": "user", "content": user_message}
+            ],
+            "temperature": 0.5,
+            "max_tokens": 200,
+        },
+    )
 
-        data = response.json()
+    if "choices" not in data:
+        return f"API ошибка: {data}"
 
-        if "choices" not in data:
-            return f"API ошибка: {data}"
-
-        return data["choices"][0]["message"]["content"]
+    data = response.json()
+    return data["choices"][0]["message"]["content"]
