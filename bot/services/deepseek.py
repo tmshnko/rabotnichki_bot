@@ -29,7 +29,7 @@ async def ask_deepseek(user_message: str) -> str:
                 {"role": "user", "content": user_message}
             ],
             "temperature": 0.5,
-            "max_tokens": 200,
+            "max_tokens": 150,
         },
     )
 
