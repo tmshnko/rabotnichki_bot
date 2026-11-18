@@ -20,12 +20,10 @@ jobs:
     steps:
       - name: Execute deploy on remote server
         uses: appleboy/ssh-action@v1 
-        env:
-          script_path: ${{ secrets.DEPLOY_SCRIPT }}
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
           port: 22
-          script: bash "$script_path"
+          script: bash /home/git_deployer/rabotnichki_bot/scripts/deploy.sh
   
